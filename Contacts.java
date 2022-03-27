@@ -1,19 +1,9 @@
 package com.Bridgelabz;
-import java.lang.String;
-public class Contacts {
+
+class Contacts {
+
     private String firstName, lastName, address, city, state, email;
     private Long zip, phoneNumber;
-
-    public Contacts(String firstName, String lastName, String address, String city, String state, Long zip, Long phoneNumber, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -75,6 +65,10 @@ public class Contacts {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "Contacts{" +
@@ -88,5 +82,4 @@ public class Contacts {
                 ", phoneNumber=" + phoneNumber +
                 '}';
     }
-
 }
