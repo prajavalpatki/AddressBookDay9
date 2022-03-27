@@ -1,6 +1,7 @@
 package com.Bridgelabz;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.HashMap;
 
 public class AddressBookMain {
     Scanner scanner = new Scanner (System.in);
@@ -8,10 +9,9 @@ public class AddressBookMain {
     //constructor
 
     public AddressBookMain() {
-        contact=new ArrayList<Contacts>();
+        contact = new ArrayList<Contacts>();
     }
     // add new person
-
     public void addPerson() {
         System.out.print("Enter first name: ");
         String firstName = scanner.next();
@@ -37,9 +37,8 @@ public class AddressBookMain {
         System.out.println("Contact added successfully\n");
     }
     //edit person details
-
     public void editPerson(String firstName, String lastName) {
-        for(int i=0 ; i< contact.size() ;i++ ) {
+        for(int i=0 ; i < contact.size() ;i++ ) {
             Contacts person = (Contacts)contact.get(i);
             if (firstName.equals (person.getFirstName()) && lastName.equals (person.getLastName())) {
                 System.out.print("Enter address: ");
@@ -54,56 +53,61 @@ public class AddressBookMain {
                 String phoneNumber = scanner.next();
                 System.out.println("Enter email id: ");
                 String email = scanner.next();
+
                 person = new Contacts(person.getFirstName(),person.getLastName(), address, city, state, zip, phoneNumber, email);
                 System.out.println(person);
+
                 contact.add(person);
                 contact.remove(i);
+                System.out.println("Contact updated successfully\n");
                 break;
             }
         }
-        System.out.println("Contact updated successfully\n");
     }
     //delete person
-
     public void  deletePerson(String firstName, String lastName) {
-        for(int i=0 ; i< contact.size() ;i++ ) {
+        for(int i = 0; i < contact.size(); i++ ) {
             Contacts person = (Contacts)contact.get(i);
             if (firstName.equals (person.getFirstName()) && lastName.equals (person.getLastName())) {
                 contact.remove(i);
+                System.out.println("Contact deleted successfully\n");
             }
         }
-        System.out.println("Contact deleted successfully\n");
     }
 
     public static void main(String[] args) {
+        HashMap<String,AddressBookMain> addressBook = new HashMap<String,AddressBookMain>();
         System.out.println("Welcome to Address Book");
         Scanner input = new Scanner (System.in);
         String firstName, lastName ;
         AddressBookMain address = new AddressBookMain();
-        while (true) {
+        while(true){
+            System.out.println("Enter name of Address Book");
+            String addressBookName = input.next();
+            addressBook.put(addressBookName, address);
             System.out.println("Select an action..");
             System.out.println("1. Add a person");
             System.out.println("2. Edit information");
             System.out.println("3. Delete a person");
             System.out.println("4. Quit");
-            int choice =input.nextInt();
+            int choice = input.nextInt();
             switch(choice) {
                 case 1:
-                    address.addPerson();
+                    addressBook.get(addressBookName).addPerson();
                     System.out.println("\n");
                     break;
                 case 2:
                     System.out.print("Enter first name and last name of the person to edit the contact: ");
                     firstName = input.next();
                     lastName = input.next();
-                    address.editPerson(firstName,lastName);
+                    addressBook.get(addressBookName).editPerson(firstName,lastName);
                     System.out.println("\n");
                     break;
                 case 3:
                     System.out.print("Enter first and last name of the person to delete the contact: ");
                     firstName = input.next();
                     lastName = input.next();
-                    address.deletePerson(firstName,lastName);
+                    addressBook.get(addressBookName).deletePerson(firstName,lastName);
                     System.out.println("\n");
                     break;
                 case 4:
